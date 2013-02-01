@@ -16,10 +16,16 @@ public class RageThread extends Thread {
 	private long idleTime = 1000;
 	private static final String THREAD_NAME = "RageThreadImpl";
 	private static final String THREAD_GROUP_NAME = "RageThreadsGroup";
-	private long maxtime = 6*60*1000;
+	private long maxtime = 3*60*1000;
+	private boolean noMaxTime = false;
 	private long time = 0L;
+	private boolean printHistory = false;
 	private static Log log = LogFactory.getLog(RageThread.class);
 	
+	/**
+	 * Return the rage thread if it's running.
+	 * @return RageThread
+	 * */
 	public static RageThread instance(){
 		Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
 		Thread[] threadArray = threadSet.toArray(new Thread[threadSet.size()]);
@@ -41,23 +47,27 @@ public class RageThread extends Thread {
 		while(isActive){
 			try {
 				if(time % (2*60*1000) == 0){/**imprime cada dos segundos que esta buscando jobs activos*/
-					log.info("Looking for active jobs...");
+					log.debug("Looking for active jobs...");
 				}
 				seekAndRun();
 				Thread.sleep(idleTime);
-				time+=idleTime;
-				if(time >= maxtime){
-					stopThis();
+				if(!noMaxTime){
+					time+=idleTime;
+					if(time >= maxtime){
+						stopThis();
+					}					
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+		log.info("Job size: "+jobs.size());
+		log.info("History size: "+history.size());
 		printHistory();
 		log.info("Leaving the cyberspace...");
 	}
 
-	private void stopThis(){
+	public void stopThis(){
 		isActive = false;
 	}
 	
@@ -84,8 +94,9 @@ public class RageThread extends Thread {
 		rageJob.start();
 	}
 	
-	public void newJob(RageJob rageJob) {
+	public void newJob(RageJob rageJob) throws IllegalArgumentException{
 		if(rageJob == null || rageJob.getName() == null)return;
+		if(jobs.containsKey(rageJob)){throw new IllegalArgumentException("The key cannot be repeated.");}
 		log.info("Adding '"+rageJob.getName()+"' to available runnable jobs.");
 		rageJob.setStatus(Status.WAITING);
 		jobs.put(rageJob.getName(), rageJob);
@@ -99,8 +110,10 @@ public class RageThread extends Thread {
 	}
 	
 	private void printHistory(){
+		if(!printHistory)return;
+		log.info("-----------------------------------------------------");
 		for(String key: history.keySet()){
-			log.debug("Job Name Proccesed: "+history.get(key).getName());
+			log.info("Job Name Proccesed: "+history.get(key).getName());
 		}
 	}
 	
@@ -110,5 +123,13 @@ public class RageThread extends Thread {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public void setNoMaxTime(boolean noMaxTime) {
+		this.noMaxTime = noMaxTime;
+	}
+
+	public boolean isNoMaxTime() {
+		return noMaxTime;
 	}
 }

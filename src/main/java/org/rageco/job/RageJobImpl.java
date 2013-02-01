@@ -1,8 +1,6 @@
 package org.rageco.job;
 
 
-import javax.transaction.SystemException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.rageco.model.Status;
@@ -26,7 +24,6 @@ public class RageJobImpl extends Thread implements RageJob {
 		l:while(isActive){
 			try{
 				attempt++;
-				
 				status = Status.RUNNING;
 				log.debug("preExecute");
 				task.preExecute();
@@ -39,14 +36,15 @@ public class RageJobImpl extends Thread implements RageJob {
 				log.debug("end postExecute");
 				status = Status.FINISHED;
 				isActive = false;
-				
 			}catch(Exception e){
 				log.error("Something went wrong, waiting "+waitTime/(60*1000)+" minute(s) before continue.");
 				e.printStackTrace();
 				status = Status.FAILED;
 				isActive = true;
+
 				if(attempt >= MAX_ATTEMPT){
 					isActive = false;
+					status = Status.SUSPENDED;
 					log.error("Max attemps reached, closing job.");
 					break l;
 				}
