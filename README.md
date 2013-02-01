@@ -1,10 +1,13 @@
 rage-engine
 ===========
 
-Several tools to mae a job handler that execute asyncronous tasks, using one single interface for manage simplicity, also a message container is in development.
+This is a personal project to manage tasks and messages through a java system, I developed this tools taking a base from the JBPM Job Execution Handler from JBoss community.
+Is for personal purpose, if someone want to use it, go ahead fork it or suggest changes.
 
-* RageThread: Pricipal main thread that manage the subsecuent tasks.
-* RageJob, RageJobImpl: Interface and implementation of a custom job, with some properties like a status and a task to do.
-* Main: Test class to view a functional case.
-
-Description and translation in progress...
+##Model
+	**Task** Simple task interface to implement a single unit of work that is required in a Job.  
+	**Message** (In development) Simple mesage interface to implement a single message passed to a main message-controller.  
+	**Status** This is a java enum to manage the Job states.  
+##Main classes
+	**RageJob** Is a single job unit compose by a task, properties object and a status the last one represent the state of the job in the main thead.  
+	**RageThread** This is the main thread that manage the execution and lifecycle of the "jobs".  
