@@ -7,6 +7,7 @@ import org.rageco.model.Status;
 import org.rageco.model.Task;
 
 public class RageJobImpl extends Thread implements RageJob {
+	private static final long serialVersionUID = 1L;
 	private Task task;
 	private Status status;
 	private boolean isActive = true;
@@ -45,7 +46,7 @@ public class RageJobImpl extends Thread implements RageJob {
 				if(attempt >= MAX_ATTEMPT){
 					isActive = false;
 					status = Status.SUSPENDED;
-					log.error("Max attemps reached, closing job.");
+					log.error("Max attemps reached, suspending job.");
 					break l;
 				}
 				try {

@@ -1,5 +1,6 @@
 package org.rageco.job;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,9 +10,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.rageco.model.Status;
 
-public class RageThread extends Thread {
-	private Map<String, RageJob> jobs = Collections.synchronizedMap(new HashMap<String,RageJob>());
-	private Map<String,RageJob> history = Collections.synchronizedMap(new HashMap<String,RageJob>());
+public class RageThread extends Thread implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private final static float LOAD_FACTOR =  0.75f; 
+	private final static int INITIAL_SIZE =  20;
+	private Map<String, RageJob> jobs = Collections.synchronizedMap(new HashMap<String,RageJob>(INITIAL_SIZE, LOAD_FACTOR));
+	private Map<String,RageJob> history = Collections.synchronizedMap(new HashMap<String,RageJob>(INITIAL_SIZE, LOAD_FACTOR));
 	private boolean isActive = true;
 	private long idleTime = 1000;
 	private static final String THREAD_NAME = "RageThreadImpl";
@@ -46,7 +50,7 @@ public class RageThread extends Thread {
 		log.info("Main thread is running...");
 		while(isActive){
 			try {
-				if(time % (2*60*1000) == 0){/**imprime cada dos segundos que esta buscando jobs activos*/
+				if(time % (2*60*1000) == 0){/**Imprime cada dos segundos que esta buscando jobs activos*/
 					log.debug("Looking for active jobs...");
 				}
 				seekAndRun();
