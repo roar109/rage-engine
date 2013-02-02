@@ -1,8 +1,8 @@
 rage-engine
 ===========
 
-This is a personal project to manage tasks and messages through a java system, I developed this tools taking a base from the JBPM Job Execution Handler from JBoss community.
-Is for personal purpose, if someone want to use it, go ahead fork it or suggest changes.
+This is a personal project to manage tasks and messages through a java system, I developed this tool taking base from the JBPM Job Execution Handler from JBoss community.
+It's for personal purpose, if someone want to use it, go ahead fork it or suggest changes.
 
 ##Model
 * **Task** Simple task interface to implement a single unit of work that is required for a Job.  
