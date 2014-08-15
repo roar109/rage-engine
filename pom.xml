@@ -3,10 +3,14 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.rageco.engine</groupId>
   <artifactId>rage-engine</artifactId>
-  <packaging>jar</packaging>
-  <version>0.1-SNAPSHOT</version>
-  <name>rage-engine</name>
-  <url>http://maven.apache.org</url>
+  <packaging>pom</packaging>
+  <version>1.0.0</version>
+
+	<modules>
+		<module>Model</module>
+		<module>Engine</module>
+	</modules>
+
   <dependencies>
 	<dependency>
 		<groupId>commons-logging</groupId>
@@ -21,4 +25,5 @@
 		<scope>compile</scope>
 	</dependency>
   </dependencies>
+  
 </project>
