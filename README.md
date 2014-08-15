@@ -12,3 +12,8 @@ It's for personal purpose, if someone want to use it, go ahead fork it or sugges
 ##Main classes
 * **RageJob** Is a single job unit, compose by a task, properties object and a status, the last one represent the state of the job in the main thread.  
 * **RageThread** This is the main thread that manages the execution and lifecycle of the "jobs".  
+
+
+##TODO
+- Use subscriber functionality to tell that one element is processed
+- Use generic cache/topic implementation 

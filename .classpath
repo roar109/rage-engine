@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="Engine/src/test/java"/>
+	<classpathentry kind="src" path="Subscribe/src/main/java"/>
 	<classpathentry kind="src" path="Model/src/main/java"/>
 	<classpathentry kind="src" path="Engine/src/main/java"/>
 	<classpathentry kind="src" path="Engine/src/main/resources"/>
-	<classpathentry kind="src" path="Engine/src/test/resoruces"/>
 	<classpathentry kind="var" path="M2_REPO/javax/transaction/jta/1.1/jta-1.1.jar" sourcepath="M2_REPO/javax/transaction/jta/1.1/jta-1.1-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" sourcepath="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar">
