@@ -14,6 +14,7 @@
 		<dependency>
 			<groupId>org.rageco.engine</groupId>
 			<artifactId>rage-engine-model</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 </project>
