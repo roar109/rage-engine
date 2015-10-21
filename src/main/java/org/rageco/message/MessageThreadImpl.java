@@ -9,7 +9,6 @@ import java.util.HashMap;
  * MessageThreadImpl represents ...
  *
  * @author hector.mendoza
- * @version $Id$
  * @since Oct 21, 2015
  *
  */
