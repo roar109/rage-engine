@@ -1,39 +1,106 @@
 package org.rageco.message;
 
+import org.rageco.model.Message;
+
 import java.util.Collections;
 import java.util.HashMap;
 
-import org.rageco.model.Message;
+/**
+ * MessageThreadImpl represents ...
+ *
+ * @author hector.mendoza
+ * @version $Id$
+ * @since Oct 21, 2015
+ *
+ */
+public class MessageThreadImpl implements MessageThread {
 
-public class MessageThreadImpl implements MessageThread{
+    private final HashMap<String, Message> messages = new HashMap<>();
 
-	private HashMap<String,Message> messages = new HashMap<String, Message>();
-	
-	public MessageThreadImpl(){Collections.synchronizedMap(messages);}
-	
-	public void addMessage(Message message) {
-		if(message == null || message.getId() == null){return;}
-		this.messages.put(message.getId(),message);
+    /**
+     * Constructs an instance of MessageThreadImpl object.
+     */
+    public MessageThreadImpl() {
+	Collections.synchronizedMap(messages);
+    }
+
+    /**
+     * Overrides addMessage
+     *
+     * @param message
+     * @since Oct 21, 2015
+     * @see org.rageco.message.MessageThread#addMessage(org.rageco.model.Message)
+     */
+    @Override
+    public void addMessage(final Message message) {
+	if ((message == null) || (message.getId() == null)) {
+	    return;
 	}
+	this.messages.put(message.getId(), message);
+    }
 
-	public Message get(String id) {
-		if(id ==null)return null;
-		return messages.get(id);
+    /**
+     * Overrides get
+     *
+     * @param id
+     * @return MEssage
+     * @since Oct 21, 2015
+     * @see org.rageco.message.MessageThread#get(java.lang.String)
+     */
+    @Override
+    public Message get(final String id) {
+	if (id == null) {
+	    return null;
 	}
+	return messages.get(id);
+    }
 
-	public Message deleteMessage(String id) {
-		if(id == null)return null;
-		Message m = messages.remove(id);
-		return m;
+    /**
+     * Overrides deleteMessage
+     *
+     * @param id
+     * @return Message
+     * @since Oct 21, 2015
+     * @see org.rageco.message.MessageThread#deleteMessage(java.lang.String)
+     */
+    @Override
+    public Message deleteMessage(final String id) {
+	if (id == null) {
+	    return null;
 	}
+	final Message m = messages.remove(id);
+	return m;
+    }
 
-	public boolean containsKey(String id) {
-		if(id == null)return false;
-		return this.messages.containsKey(id);
+    /**
+     * Overrides containsKey
+     *
+     * @param id
+     * @return boolean
+     * @since Oct 21, 2015
+     * @see org.rageco.message.MessageThread#containsKey(java.lang.String)
+     */
+    @Override
+    public boolean containsKey(final String id) {
+	if (id == null) {
+	    return false;
 	}
+	return this.messages.containsKey(id);
+    }
 
-	public boolean contains(Message message) {
-		if(message == null) return false;
-		return messages.containsValue(message);
+    /**
+     * Overrides contains
+     *
+     * @param message
+     * @return boolean
+     * @since Oct 21, 2015
+     * @see org.rageco.message.MessageThread#contains(org.rageco.model.Message)
+     */
+    @Override
+    public boolean contains(final Message message) {
+	if (message == null) {
+	    return false;
 	}
+	return messages.containsValue(message);
+    }
 }
